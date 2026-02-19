@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="OpenAI Chatbot">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f4;
+        }
+
+        .chat-container {
+            width: 85%;
+            margin: 50px auto;
+            border-radius: 15px;
+            background-color: #778899;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            overflow-y: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background-color: #A9B388;
+            color: #FEFAE0;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            font-size: 24px;
+            font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .chat-messages {
+            height: 400px;
+            margin: 0;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px;
+        }
+
+        .message {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: #3d3d3d;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            padding: 15px;
+            margin-left: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: transform 0.3s ease;
+        }
+
+        .user-message {
+            background-color: #afaff8;
+            color: #3d3d3d;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            padding: 15px;
+            margin-left: auto;
+            margin-right: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: transform 0.3s ease;
+        }
+
+        .chatbot-profile {
+            display: flex;
+            align-items: center; /* Center vertically */
+            margin-bottom: 20px;
+            margin-right: 10px; /* Add margin to separate profile image from message */
+        }
+
+        .chatbot-profile img {
+            width: 50px; /* Set image width */
+            height: 50px; /* Set image height */
+            border-radius: 10px; /* Make the image rounded square */
+            margin-right: 10px; /* Add margin to separate image from text */
+            border: none; /* Remove border */
+        }
+
+        .chat-input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color:#C0C0C0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-grow: 1; /* Allow the input group to fill the space */
+            border-radius: 20px;
+            background-color: #fff;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 20px 0 0 20px; /* Round the left corners */
+            outline: none;
+        }
+
+        .send-button, .end-button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-right: 10px; 
+            background-color: #778899;
+            color: #FFFFFF;
+        }
+
+        .send-button:hover, .end-button:hover {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background-color: #637383;
+            margin-right: 10px; 
+        }
+
+        @media(max-width: 479px) {
+
+        .input-group {
+            display: flex;
+            border-radius: 10px;
+            align-items: center;
+        }
+        .chat-messages {
+            padding: 5px;
+            height: 450px;
+        }
+        .chat-input{
+            padding: 5px;
+            width:100%;
+        }
+        .chat-input-container {
+            padding: 5px 5px;
+        }
+        .send-button {
+            font-size: 18px;
+            padding: 8px 16px;
+            margin-right: 5px;
+        }
+        .end-button {
+            font-size: 11px;
+            padding: 8px 16px;
+            margin-right: 5px;
+        }
+        .chatbot-profile {
+            margin-bottom: 1px;
+            margin-right: 1px;
+        }
+        .message{
+            margin-left: 2px;
+        }
+}
+
+        /* Fun animations */
+        .message:hover,
+        .user-message:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        .message-container:nth-child(odd) .message,
+        .message-container:nth-child(odd) .user-message {
+            animation: slideFromLeft 0.5s ease; /* Slide in from left for odd messages */
+        }
+
+        .message-container:nth-child(even) .message,
+        .message-container:nth-child(even) .user-message {
+            animation: slideFromRight 0.5s ease; /* Slide in from right for even messages */
+        }
+
+        @keyframes slideFromLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .suggestion-buttons {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping of buttons */
+            justify-content: center; /* Center align buttons */
+            margin-bottom: 10px; /* Add margin at bottom of suggestion buttons */
+        }
+
+        .suggestion-button {
+            background-color: #FEFAE0;
+            color: #5F6F52;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion-button:hover {
+            background-color: #A9B388;
+            color: #FEFAE0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    </div>
+    <div class="chat-container">
+        <div class="chat-messages">
+            <!-- Initial message from chatbot -->
+            <div class="message-container">
+                <div class="chatbot-profile">
+                    <img src="static/EnSys_prof.png" alt="EnSys">
+                </div>
+                <div class="message">Hi there! We hope you enjoyed dining with us, could you tell us where we lacked?</div>
+            </div>
+        </div>
+        <div class="suggestions-container">
+            <!-- Suggestions will be displayed here -->
+        </div>
+        <div class="chat-input-container">
+            <div class="input-group">
+            <input type="text" class="chat-input" name="message" placeholder="Type your message here" autocomplete="off" autofocus>
+            <button class="end-button" onclick="endChat()">End Chat</button>
+            <button class="send-button">➤</button> <!-- This is the Unicode for a right-pointing arrow -->
+            <input type="hidden" name="sentiment" value="Neutral"> <!-- Hidden input field for sentiment -->
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="static/chat_script.js"></script>
+</body>
+</html>

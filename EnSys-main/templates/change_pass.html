@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-5FjMh+uo8h4y0ZmT8D3LSMzVzz6S7bXbEJZ7KmWg5QttfLQ9KnbrY6Vcr8lZvKeeMjZlTL5X5QQNZs3RPUZQvw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global styles */
+        html {
+            line-height: 1.15;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #333;
+            background-color: #f0f0f0;
+            -ms-overflow-style: none; 
+            scrollbar-width: none;  
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            border: 2px solid transparent;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            text-align: left;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 16px);
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            font-size: 16px;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .password-requirements {
+            font-size: 12px;
+            text-align: left;
+            margin-top: 8px;
+            color: #666;
+        }
+        .password-requirements li {
+            margin-bottom: 4px;
+        }
+        .message {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+        .success-message {
+            color: #4CAF50;
+        }
+        .error-message {
+            color: #FF5733;
+        }
+        .error-message::before {
+            content: "\u26A0\ufe0f ";
+        }
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .form-container {
+                max-width: 600px;
+            }
+        }
+        .button-group {
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .button-group a {
+            text-decoration: none;
+            color: #333;
+            padding: 12px 24px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        .button-group a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Specific button styles */
+        .button-group a.back-to-login {
+            color: #A9B388; 
+            border-color: #A9B388; 
+        }
+        .button-group a.back-to-login:hover {
+            background-color: #7F896B; 
+            color: #FEFAE0;
+        }
+        .button-group a.homepage {
+            color: #f44336;
+            border-color: #f44336;
+        }
+        .button-group a.homepage:hover {
+            background-color: #ffebee;
+            color: #b71c1c;
+        }
+        .error-message {
+            color: red;
+        }
+        .success-message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="message {{ category }}-message"><i class="fas fa-exclamation-circle"></i> {{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h2>Change Password</h2>
+        <form method="POST" action="/change_password" onsubmit="return validateForm()">
+            <label for="username">Admin Username</label>
+            <input type="text" id="username" name="username" placeholder="Admin Username" required>
+            <label for="currentPassword">Current Password</label>
+            <input type="password" id="currentPassword" name="currentPassword" placeholder="Current Password" required>
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" name="newPassword" placeholder="New Password" required>
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password" required>
+            <button type="submit">Change Password</button>
+        </form>
+        <div class="button-group">
+            <a href="/login" class="back-to-login">Back to Login</a>
+            <a href="/" class="homepage">Homepage</a>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            var newPassword = document.getElementById("newPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match");
+                return false;
+            }
+            var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+            if (!strongRegex.test(newPassword)) {
+                alert("Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

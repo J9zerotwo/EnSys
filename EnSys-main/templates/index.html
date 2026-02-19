@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EnSys</title>
+  <meta property="og:title" content="EnSys" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <style data-tag="reset-style-sheet">
+    html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}
+  </style>
+  <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+        fill: var(--dl-color-gray-black);
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      body {
+        -ms-overflow-style: none; 
+        scrollbar-width: none;  
+      }
+      .button-container {
+        margin: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+      }
+      .bubble-button {
+        display: inline-block;
+        margin: 0 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: transform 0.5s ease;
+        animation: floatAnimation 5s ease infinite alternate;
+      }
+      .bubble-button img {
+        width: 300px;
+        height: 300px;
+        filter: grayscale(0%); 
+        transition: filter 0.3s ease;
+      }
+      .bubble-button:hover img {
+        filter: contrast(400%); 
+      }
+      .button-label {
+        color: #fefae0; 
+        font-size: 25px;
+        text-align: center;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 7px 7px; 
+        background-color: #203638;
+        border-radius: 5px; 
+        width: fit-content;
+        margin: 0 auto;
+      }
+      @keyframes floatAnimation {
+        0% { transform: translateY(0);}
+        50% {transform: translateY(-10px);}
+        100% { transform: translateY(0);}
+      }
+      .search-button {
+        text-align: center;
+        background-color: rgba( 71,157,163,0.14); 
+        color: #fefae0; 
+        font-size: 35px; 
+        font-family: monospace;
+        padding: 15px 50px; 
+        margin: 50px;
+        border: none;
+        border-radius: 20px; 
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      }
+      .home-container {
+      padding-top: 60px; /* Compensate for fixed header */
+    }
+    section {
+      padding: 100px 20px; /* Ensure content is not hidden behind the header */
+    }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="./static/style.css"/>
+    <div>
+      <link href="./static/index.css" rel="stylesheet"/>
+      <div class="home-container">
+        <header data-thq="thq-navbar" class="home-navbar">
+          <a href="#welcome" class="home-logo button-clean button">EnSys</a>
+          <div data-thq="thq-navbar-nav" data-role="Nav" class="home-desktop-menu">
+            <nav data-thq="thq-navbar-nav-links" data-role="Nav" class="home-nav">
+              <a href="#about" class="home-link button-clean button">ABOUT</a>
+              <a href="#features" class="home-link button-clean button">FEATURES</a>
+              <a href="#faqs" class="home-link button-clean button">FAQs</a>
+              <a href="{{ url_for('feedback_report') }}" class="home-link button-clean button">REPORT</a>
+              <a href="#chat" class="home-chatbt button">CHAT NOW</a>
+            </nav>
+          </div>
+          <div data-thq="thq-navbar-btn-group" class="home-btn-group">
+            <div class="home-socials"></div>
+          </div>
+          <div data-thq="thq-burger-menu" class="home-burger-menu"></div>
+          <div data-thq="thq-mobile-menu" class="home-mobile-menu">
+            <div data-thq="thq-mobile-menu-nav" data-role="Nav" class="home-nav1">
+              <div class="home-container1"></div>
+            </div>
+          </div> 
+        </header>
+        <section id="welcome" class="home-hero">
+          <div class="home-heading"> 
+            <h1 class="home-header">Welcome to EnSys!</h1>
+            <p class="home-caption"> Just a few clicks can make a difference. Let's make your voice heard!</p>
+          </div>
+        </section>
+        <section id="about" class="home-about">
+          <div class="home-content">
+            <div class="home-heading">
+              <h1 class="home-header">What is EnSys?</h1>
+              <p class="description">EnSys is an english-based customer service chatbot designed for the food and service industry, utilizing natural language processing, sentiment analysis, and empathic computing. Its goal is to enhance empathy, enabling it to understand human emotions, leading to improved customer satisfaction and operational efficiency. EnSys aims to revolutionize customer relationship management and elevate the customer experience in the industry.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="home-feature">
+          <div class="home-heading">
+            <h1 class="home-header">What does Ensys do?</h1>
+            <div class="home-list">
+              <div class="home-step">
+                <span class="num">01</span>
+                <h2 class="home-header1">Collects Feedback</h2>
+                <p class="description">EnSys collects each transaction made from the three chat interfaces and analyzes the data gathered to provide a detailed feedback report to the client. By systematically collecting and analyzing this feedback, EnSys helps businesses to continuously refine their customer support processes, ensuring that services evolve to meet customer expectations.</p>
+              </div>
+              <div class="home-step">
+                <span class="num">02</span>
+                <h2 class="home-header1">Addresses Customer Inquiries</h2>
+                <p class="description">EnSys is equipped to address customer inquiries related to food and service effectively. It uses its functionalities to provide relevant information, assistance, and solutions to customer queries in a timely manner.</p>
+              </div>
+              <div class="home-step">
+                <span class="num">03</span>
+                <h2 class="home-header1">Analyzes Data</h2>
+                <p class="description">EnSys analyzes the collected feedback data to identify problems and positive feedback. This helps restaurants understand customer preferences and areas for improvement.</p>
+              </div>
+              <div class="home-step">
+                <span class="num">04</span>
+                <h2 class="home-header1">Enhances Customer Experience</h2>
+                <p class="description">By offering empathetic responses and personalized interactions, EnSys aims to significantly enhance the overall customer experience. It acknowledges customer emotions, provides support, and guides users through their interactions, creating a positive and engaging experience. This empathetic approach helps in building a deeper connection with customers, making them feel valued and appreciated.</p>
+              </div>
+              <div class="home-step">
+                <span class="num">05</span>
+                <h2 class="home-header1">Improves Customer Satisfaction</h2>
+                <p class="description">EnSys plays a crucial role in improving customer satisfaction levels. It ensures that customers feel heard, supported, and valued during their interactions with the food service business. By addressing their concerns promptly and empathetically, EnSys helps in resolving issues effectively, leading to higher levels of customer satisfaction and loyalty.</p>
+              </div>
+              <div class="home-step">
+                <span class="num">06</span>
+                <h2 class="home-header1">Three Chat Interfaces</h2>
+                <p class="description">The EnSys has three chat interfaces (satisfied, mediocre, dissatisfied) where it accommodates the customers by its needs. It comprehends the customer’s messages and initiates a conversation to address their concerns empathetically. By understanding the emotional context of the user's feedback, EnSys can provide more personalized and effective responses, making customers feel heard and understood.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section id="chat" class="home-chat">
+          <br>
+          <h1 class="search-button">HOW WAS YOUR DINING EXPERIENCE?</h1>
+          <div class="button-container">
+            <div>
+              <a href="/chat_1" class="bubble-button">
+                <img src="{{ url_for('static', filename='smile.png') }}" alt="Button 1"/>
+              </a>
+              <p class="button-label">SATISFIED</p>
+            </div>
+            <div>
+              <a href="/chat_2" class="bubble-button">
+                <img src="{{ url_for('static', filename='neutral.png') }}" alt="Button 2"/>
+              </a>
+              <p class="button-label">MEDIOCRE</p>
+            </div>
+            <div>
+              <a href="/chat_3" class="bubble-button">
+                <img src="{{ url_for('static', filename='sad.png') }}" alt="Button 3"/>
+              </a>
+              <p class="button-label">UNSATISFIED</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="faqs" class="home-faq"></section>
+          <h2 class="home-header">Frequently Asked Questions</h2>
+          <div class="home-accordion">
+            <div class="home-content">
+              <div class="accordion"></div>
+                <span class="home-header1">How to start a conversation with EnSys?</span>
+                <p class="description">Simply click on any of the three emoji buttons, depending on how you feel – whether you are satisfied, feeling mediocre, or unsatisfied. Once connected, feel free to type your inquiries or comments to begin the conversation.</p>
+              
+              <div class="accordion"></div>
+                <span class="home-header1">How to end a conversation with EnSys?</span>
+                <p class="description">To end a conversation with EnSys, click on the "End" button. This action will redirect you to another page, signaling the conclusion of your interaction with EnSys.</p>
+              
+              <div class="accordion"></div>
+                <span class="home-header1">How do I resolve issues related to food quality or service?</span>
+                <p class="description">EnSys is designed to assist you in resolving any issues related to food quality or service. Simply express your concerns or feedback regarding your dining experience, and EnSys will provide personalized responses to address your specific needs and ensure a satisfactory resolution.</p>
+              
+              <div class="accordion"></div>
+                <span class="home-header1">How can I provide feedback on my experience with EnSys?</span>
+                <p class="description">You can share your feedback with EnSys by typing it during your conversation. EnSys will then respond to your feedback, allowing you to express your thoughts and suggestions for improvement.</p>
+             
+              <div class="accordion"></div>
+                <span class="home-header1">Is EnSys capable of providing personalized responses to feedback?</span>
+                <p class="description">EnSys is designed to offer tailored responses based on the input it receives. While it doesn't analyze individual users' past interactions, it can adapt its answers based on the context of the conversation. This allows it to provide more relevant and helpful information to users. </p><br><br><br>
+                <div class="accordion"></div>
+            </div>
+          </div>
+        </section>
+        <footer class="home-footer">
+          <!-- Footer content -->
+          <span class="home-copyright">© 2024 EnSys. All Rights Reserved.</span>
+        </footer>
+    </div>
+  </div>
+  <script>
+    const burgerMenu = document.querySelector('.home-burger-menu');
+    const mobileMenu = document.querySelector('.home-mobile-menu');
+
+    burgerMenu.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

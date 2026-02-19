@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="OpenAI Chatbot Rating Page">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fefae0;
+        }
+
+        .rating-container {
+            width: 60%;
+            margin: 50px auto;
+            border-radius: 5px;
+            background-color: #5F6F52;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .rating-header {
+            background-color: #A9B388;
+            color: #FEFAE0;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .rating-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10%;
+            margin-right: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-bubble {
+            background-color: #FEFAE0;
+            color: #3d3d3d;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-width: 80%;
+        }
+
+        .chat-bubble:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #FEFAE0 transparent transparent;
+        }
+
+        .QR-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            background-color: #A9B388;
+            padding: 15px 20px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .QR-code {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            width: 200px;
+            background-color: #FEFAE0;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-code-img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .submit-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .submit-container button {
+            background-color: #A9B388;
+            color: #FEFAE0;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size:18px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 0 #5F6F52, 0 15px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .submit-container button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: transform 0.5s ease;
+            z-index: 1;
+        }
+
+        .submit-container button:hover {
+            background-color: #7A8B68;
+        }
+
+        .submit-container button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .submit-container button:active {
+            box-shadow: 0 5px 0 #5F6F52, 0 10px 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(5px);
+        }
+
+        .exit-message {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rating-container">
+        <div class="rating-header">
+            <img src="{{ url_for('static', filename='EnSys_prof.png') }}" alt="EnSys Logo">
+            <div class="chat-bubble">Hi there! I'm EnSys. Would you please take a moment to fill out the form to evaluate my performance? <br><br>
+                You can either scan the QR Code or click it to redirect you to the form. I appreciate your feedback! 😊
+            </div> 
+        </div>
+
+        <!-- QR code container -->
+        <div class="QR-container" id="QRcontainer">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPpUTcbWxVcNd6Kd-9Fix7bsKfh7uGVazYjirtoayemNElFg/viewform"> <!-- link to google forms -->
+                <div class="QR-code" id="QRcode">
+                    <img src="{{ url_for('static', filename='Customer_Survey.png') }}" alt="QR Code" class="qr-code-img">
+                </div>
+            </a>
+        </div>
+
+        <div class="submit-container">
+            <button onclick="exitProgram()">EXIT</button>
+        </div>
+    </div>
+
+    <script>
+        function exitProgram() {
+            alert("Thank you for your feedback!");
+            setTimeout(function() {
+                window.location.href = "/";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

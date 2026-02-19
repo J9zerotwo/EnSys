@@ -1,0 +1,9 @@
+flask
+vaderSentiment
+spacy
+nltk
+python-dotenv
+scikit-learn
+pandas
+openai==0.28
+python-docx
